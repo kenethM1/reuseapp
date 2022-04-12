@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this, unnecessary_getters_setters, file_names
+
 class User {
   int? _id;
   String? _title;
@@ -88,7 +90,7 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this._id;
     data['title'] = this._title;
     data['firstName'] = this._firstName;
