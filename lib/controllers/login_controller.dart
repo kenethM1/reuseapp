@@ -10,19 +10,20 @@ import '../models/User.dart';
 class LoginController extends GetxController {
   var email = TextEditingController().obs;
   var password = TextEditingController().obs;
+  var scrollController = ScrollController().obs;
   var isLogged = false.obs;
+  var isWait = false.obs;
+  var errorMessage = "".obs;
+  var user = User().obs;
 
-  void formChanged() {
-    debugPrint('form changed');
-    debugPrint('email: ${email.value.text}');
-    debugPrint('password: ${password.value.text}');
-  }
-
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     String uri = "/Accounts/authenticate";
     Map<String, String> headers = {
       "Content-type": "application/json",
     };
+
+    _updateValue(isLogged, value: false);
+    _updateValue(isWait, value: true);
 
     Map<String, String> body = {
       'email': email.value.text,
@@ -34,9 +35,32 @@ class LoginController extends GetxController {
             .execute();
 
     if (response.statusCode == 200) {
-      var user = User.fromJson(json.decode(response.body));
+      user.value = User.fromJson(json.decode(response.body));
       isLogged.value = true;
+      _updateValue(isWait, value: false);
+      _updateValue(isLogged, value: true);
       debugPrint('user: ${user.toJson()}');
+    } else {
+      _updateValue(isWait, value: false);
+      _updateValue(isLogged, value: false);
+      errorMessage.value = response.body;
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text("Error"),
+                content: Text(errorMessage.value),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("Ok"),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ));
     }
+  }
+
+  void _updateValue(RxBool isWait, {bool? value}) {
+    isWait.value = value ?? isWait.value;
+    update();
   }
 }

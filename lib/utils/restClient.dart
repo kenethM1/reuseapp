@@ -8,8 +8,8 @@ class restClient {
   String url;
   final String method;
   final Map<String, String> headers;
-  final Map<String, String> body;
-  Map<String, String> query;
+  final Map<String, dynamic> body;
+  Map<String, dynamic> query;
 
   restClient({
     this.baseUrl = "192.168.31.126",

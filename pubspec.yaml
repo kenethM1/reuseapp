@@ -37,6 +37,7 @@ dependencies:
   http: ^0.13.4
   get: ^4.6.1 
   flutter_svg: ^1.0.3
+  google_fonts:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -62,7 +63,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/High_five_pana.svg
-  #   - images/a_dot_ham.jpeg
+    - assets/Wishes-cuate.svg
+    - assets/images/flags/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
