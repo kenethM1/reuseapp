@@ -198,6 +198,7 @@ class LoginStates extends StatelessWidget {
                     ),
                     Text(
                       TranslationHelper().getTranslated("welcome") +
+                          " " +
                           controller.user.value.firstName.toString(),
                       style: GoogleFonts.montserrat(
                         fontSize: 20,
@@ -205,9 +206,9 @@ class LoginStates extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_forward),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pushNamed('homeScreen');
                       },
                     ),
                   ]),

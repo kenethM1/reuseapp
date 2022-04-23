@@ -28,11 +28,11 @@ class VerifyAccountController extends GetxController {
       http.Response response = await restClient(
               body: request,
               method: 'POST',
-              url: 'verifyAccount',
+              url: '/Accounts/verify-email',
               headers: hearders)
           .execute();
       if (response.statusCode == 200) {
-        Navigator.of(context).pushNamed('/main');
+        Navigator.of(context).pushNamed('homeScreen');
       } else {
         showDialog(
             context: context,
@@ -57,6 +57,6 @@ class VerifyAccountController extends GetxController {
 
 Map<String, dynamic> MaterializeRequest(String text) {
   return {
-    'code': text,
+    'token': text,
   };
 }

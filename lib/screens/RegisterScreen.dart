@@ -140,7 +140,6 @@ class RegisterAccount extends StatelessWidget {
                                     value ?? false;
                               },
                             )),
-                        SizedBox(height: 20),
                         Obx(() => ElevatedButton(
                               style: AppButtonsResourses().primaryButton,
                               child: Text(translate.getTranslated('register'),

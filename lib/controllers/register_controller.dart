@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:reuseapp/controllers/login_controller.dart';
 import 'package:reuseapp/utils/TranslationsHelper.dart';
 import 'package:reuseapp/utils/restClient.dart';
+
+import '../models/User.dart';
 
 class RegisterController extends GetxController {
   var email = ''.obs;
@@ -16,6 +19,8 @@ class RegisterController extends GetxController {
   var lastName = ''.obs;
   var acceptTerms = false.obs;
   var canSeePassword = false.obs;
+
+  var loginController = Get.find<LoginController>();
   var validEmailPattern = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
@@ -110,6 +115,7 @@ class RegisterController extends GetxController {
         },
       ).execute();
       if (response.statusCode == 200) {
+        loginController.user.value = User.fromJson(json.decode(response.body));
         Navigator.of(context).pushNamed('verifyCode');
       } else {
         showDialog(

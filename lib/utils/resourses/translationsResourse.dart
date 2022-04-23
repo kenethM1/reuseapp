@@ -14,6 +14,14 @@ class TranslationResourse {
       "accept_terms": "Accept Terms and Conditions",
       "first_name": "First Name",
       "last_name": "Last Name",
+      "phone_number": "Phone Number",
+      "verify_account": "Verify Account",
+      "verify_account_description":
+          "Please enter the code sent to your email. If you don't receive the code, please check your spam folder.",
+      "code": "Code",
+      "verify": "Verify",
+      "welcome_message": "The most popular clothes of today",
+      "search_hint": "What are you looking for?",
     },
     "es": {
       "appName": "Re-USE",
@@ -29,6 +37,14 @@ class TranslationResourse {
       "accept_terms": "Acepto los términos y condiciones",
       "first_name": "Nombres",
       "last_name": "Apellidos",
+      "phone_number": "Número de teléfono",
+      "verify_account": "Verificar cuenta",
+      "verify_account_description":
+          "Por favor ingrese el código enviado a su correo electrónico. Si no recibe el código, por favor revise su carpeta de spam.",
+      "code": "Código",
+      "verify": "Verificar",
+      "welcome_message": "Las prendas más populares de hoy",
+      "search_hint": "¿Qué estás buscando?",
     },
   };
 }

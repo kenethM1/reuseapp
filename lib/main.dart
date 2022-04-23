@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reuseapp/screens/HomeScreen.dart';
 import 'package:reuseapp/screens/LoginScreen.dart';
 import 'package:reuseapp/screens/RegisterScreen.dart';
 import 'package:reuseapp/screens/VerifyAccountScreen.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         'login': (context) => LoginScreen(),
         'newAccount': (context) => RegisterAccount(),
         'verifyCode': (context) => VerifyAccountScreen(),
+        'homeScreen': (context) => HomeScreen(),
       },
     );
   }
