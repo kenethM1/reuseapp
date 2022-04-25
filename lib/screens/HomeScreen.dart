@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reuseapp/Widgets/Carrousel_Widget.dart';
+import 'package:reuseapp/Widgets/ProductsListView_Widget.dart';
 import 'package:reuseapp/utils/colors.dart';
 import 'package:reuseapp/utils/resourses/AppFontsResourses.dart';
 
@@ -23,53 +25,70 @@ class HomeScreen extends StatelessWidget {
             children: [
               NavBarWidget(
                   loginController: loginController, phoneScreen: phoneScreen),
-              Container(
-                width: phoneScreen.width,
-                padding: EdgeInsets.only(top: 20, left: 5),
-                child: Text(translate.getTranslated('welcome_message'),
-                    style: AppFontsResourses()
-                        .secondaryText
-                        .copyWith(color: Colors.grey)),
-              ),
+              // Container(
+              //   padding: EdgeInsets.only(top: 20, left: 5),
+              //   child: Text(translate.getTranslated('welcome_message'),
+              //       style: AppFontsResourses()
+              //           .secondaryText
+              //           .copyWith(color: Colors.grey)),
+              // ),
               SizedBox(height: 20),
-              Row(
-                children: [
-                  Spacer(),
-                  Container(
-                    transformAlignment: Alignment.centerRight,
-                    width: phoneScreen.width * 0.9,
-                    decoration: BoxDecoration(
-                      color: ColorsApp.primary,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          bottomLeft: Radius.circular(30)),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 10,
-                          color: Colors.black.withOpacity(0.2),
-                          offset: Offset(0, 20),
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      //textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                        border: InputBorder.none,
-                        hintText: translate.getTranslated('search_hint'),
-                        hintStyle: AppFontsResourses().secondaryWhite,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              SearchBarWidget(phoneScreen: phoneScreen, translate: translate),
+              CarrouselWidget(),
+              SizedBox(height: 20),
+              Expanded(child: ProductsListView())
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class SearchBarWidget extends StatelessWidget {
+  const SearchBarWidget({
+    Key? key,
+    required this.phoneScreen,
+    required this.translate,
+  }) : super(key: key);
+
+  final Size phoneScreen;
+  final TranslationHelper translate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Spacer(),
+        Container(
+          transformAlignment: Alignment.centerRight,
+          width: phoneScreen.width * 0.9,
+          decoration: BoxDecoration(
+            color: ColorsApp.primary,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30), bottomLeft: Radius.circular(30)),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 10,
+                color: Colors.black.withOpacity(0.2),
+                offset: Offset(0, 20),
+              ),
+            ],
+          ),
+          child: TextField(
+            //textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              border: InputBorder.none,
+              hintText: translate.getTranslated('search_hint'),
+              hintStyle: AppFontsResourses().secondaryWhite,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -90,7 +109,7 @@ class NavBarWidget extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           color: ColorsApp.primary,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(40),
             bottomRight: Radius.circular(40),
           )),

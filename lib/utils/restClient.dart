@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class restClient {
-  String baseUrl = "192.168.31.10";
+  String baseUrl = "192.168.1.18";
   String url;
   final String method;
   final Map<String, String> headers;
-  final Map<String, dynamic> body;
+  final Map<String, dynamic>? body;
   Map<String, dynamic> query;
 
   restClient({
-    this.baseUrl = "192.168.31.10",
+    this.baseUrl = "192.168.1.18",
     required this.url,
     required this.method,
     required this.headers,
-    required this.body,
+    this.body,
     this.query = const {},
   });
 
