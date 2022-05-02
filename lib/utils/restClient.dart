@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class restClient {
-  String baseUrl = "192.168.1.18";
+  String baseUrl = "192.168.1.16";
   String url;
   final String method;
   final Map<String, String> headers;
@@ -12,7 +12,7 @@ class restClient {
   Map<String, dynamic> query;
 
   restClient({
-    this.baseUrl = "192.168.1.18",
+    this.baseUrl = "192.168.1.16",
     required this.url,
     required this.method,
     required this.headers,

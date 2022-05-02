@@ -25,7 +25,7 @@ class CarrouselWidget extends StatelessWidget {
         builder: (context, snapshot) => snapshot.hasData
             ? CarouselSlider(
                 options: CarouselOptions(
-                  height: phoneSize.height * 0.25,
+                  height: phoneSize.height * 0.15,
                   disableCenter: true,
                   viewportFraction: 0.25,
                   enlargeCenterPage: true,

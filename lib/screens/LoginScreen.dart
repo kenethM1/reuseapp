@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:reuseapp/models/User.dart';
 import 'package:reuseapp/utils/colors.dart';
+import 'package:reuseapp/utils/resourses/FormFieldResourses.dart';
 import 'package:reuseapp/utils/resourses/appButtonsResourses.dart';
 import 'package:reuseapp/utils/restClient.dart';
 import 'package:reuseapp/utils/translationsHelper.dart';
@@ -251,50 +252,16 @@ class LoginForm extends StatelessWidget {
           : Form(
               child: Column(children: [
               Obx(() => TextFormField(
-                    autocorrect: false,
-                    controller: loginCtrl.email.value,
-                    decoration: InputDecoration(
-                      labelText: TranslationHelper().getTranslated("email"),
-                      labelStyle: GoogleFonts.montserrat(
-                        fontSize: 20,
-                        color: ColorsApp.primary,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorsApp.primary,
-                          width: 2,
-                        ),
-                      ),
-                      hintText: TranslationHelper().getTranslated("enterEmail"),
-                      prefixIcon: Icon(Icons.email, color: ColorsApp.primary),
-                      counterStyle: TextStyle(color: ColorsApp.primary),
-                    ),
-                  )),
+                  autocorrect: false,
+                  controller: loginCtrl.email.value,
+                  decoration: FormFieldResourses()
+                      .formfield('email', 'enterEmail', Icons.email))),
               Obx(() => TextFormField(
                     autocorrect: false,
                     controller: loginCtrl.password.value,
                     obscureText: true,
-                    style: TextStyle(color: ColorsApp.primary),
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorsApp.primary,
-                          width: 2,
-                        ),
-                      ),
-                      counterStyle: TextStyle(color: ColorsApp.primary),
-                      labelText: TranslationHelper().getTranslated("password"),
-                      labelStyle: GoogleFonts.montserrat(
-                        fontSize: 20,
-                        color: ColorsApp.primary,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: ColorsApp.primary,
-                      ),
-                      hintText:
-                          TranslationHelper().getTranslated("enterPassword"),
-                    ),
+                    decoration: FormFieldResourses()
+                        .formfield("password", "enterPassword", Icons.lock),
                   )),
               const SizedBox(height: 20),
               Obx(() => ElevatedButton(

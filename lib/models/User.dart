@@ -11,7 +11,7 @@ class User {
   String? _updated;
   bool? _isVerified;
   String? _jwtToken;
-
+  String? _profilePicture;
   User(
       {int? id,
       String? title,
@@ -22,7 +22,8 @@ class User {
       String? created,
       String? updated,
       bool? isVerified,
-      String? jwtToken}) {
+      String? jwtToken,
+      String? profilePicture}) {
     if (id != null) {
       this._id = id;
     }
@@ -53,6 +54,9 @@ class User {
     if (jwtToken != null) {
       this._jwtToken = jwtToken;
     }
+    if (profilePicture != null) {
+      this._profilePicture = profilePicture;
+    }
   }
 
   int? get id => _id;
@@ -75,6 +79,9 @@ class User {
   set isVerified(bool? isVerified) => _isVerified = isVerified;
   String? get jwtToken => _jwtToken;
   set jwtToken(String? jwtToken) => _jwtToken = jwtToken;
+  String? get profilePicture => _profilePicture;
+  set profilePicture(String? profilePicture) =>
+      _profilePicture = profilePicture;
 
   User.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -87,6 +94,7 @@ class User {
     _updated = json['updated'];
     _isVerified = json['isVerified'];
     _jwtToken = json['jwtToken'];
+    _profilePicture = json['profilePicture'];
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +109,7 @@ class User {
     data['updated'] = this._updated;
     data['isVerified'] = this._isVerified;
     data['jwtToken'] = this._jwtToken;
+    data['profilePicture'] = this._profilePicture;
     return data;
   }
 }

@@ -11,12 +11,7 @@ import '../utils/restClient.dart';
 class ProductsController extends GetxController {
   var products = <Product>[].obs;
   var selectedProduct = Product().obs;
-
-  @override
-  void onInit() {
-    getProducts();
-    super.onInit();
-  }
+  var isCharging = false.obs;
 
   void selectProduct(Product product) {
     selectedProduct.value = product;
@@ -40,5 +35,34 @@ class ProductsController extends GetxController {
       return [];
     }
     return [];
+  }
+
+  Future<List<Product>> GetProductByCategory(int id) async {
+    isCharging.value = true;
+    update();
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    http.Response response = await restClient(
+            url: "/GetProductByCategory/$id", method: "GET", headers: headers)
+        .execute();
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      var products =
+          List<Product>.from(jsonData.map((model) => Product.fromJson(model)));
+      this.products.value = products;
+      update();
+      isCharging.value = false;
+      return products;
+    }
+    return [];
+  }
+
+  void UpdateProductList(int? id) async {
+    if (id != null) {
+      await GetProductByCategory(id);
+    } else {
+      getProducts();
+    }
   }
 }

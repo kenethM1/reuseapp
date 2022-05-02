@@ -16,6 +16,8 @@ class LoginController extends GetxController {
   var errorMessage = "".obs;
   var user = User().obs;
 
+  get getUserProfilePicture => user.value.profilePicture ?? "";
+
   Future<void> login(BuildContext context) async {
     String uri = "/Accounts/authenticate";
     Map<String, String> headers = {

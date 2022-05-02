@@ -5,7 +5,9 @@ import 'package:reuseapp/Widgets/ProductsListView_Widget.dart';
 import 'package:reuseapp/utils/colors.dart';
 import 'package:reuseapp/utils/resourses/AppFontsResourses.dart';
 
+import '../Widgets/Navbar_Widget.dart';
 import '../controllers/login_controller.dart';
+import '../controllers/products_controller.dart';
 import '../utils/TranslationsHelper.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,6 +18,7 @@ class HomeScreen extends StatelessWidget {
     var phoneScreen = MediaQuery.of(context).size;
     var loginController = Get.find<LoginController>();
     var translate = TranslationHelper();
+    var productsController = Get.put<ProductsController>(ProductsController());
     return Scaffold(
       backgroundColor: ColorsApp.primary,
       body: SafeArea(
@@ -34,9 +37,11 @@ class HomeScreen extends StatelessWidget {
               // ),
               SizedBox(height: 20),
               SearchBarWidget(phoneScreen: phoneScreen, translate: translate),
-              CarrouselWidget(),
               SizedBox(height: 20),
-              Expanded(child: ProductsListView())
+              CarrouselWidget(),
+              Obx(() => productsController.isCharging == true
+                  ? Center(child: CircularProgressIndicator())
+                  : Expanded(child: ProductsListView()))
             ],
           ),
         ),
@@ -89,51 +94,6 @@ class SearchBarWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class NavBarWidget extends StatelessWidget {
-  const NavBarWidget({
-    Key? key,
-    required this.loginController,
-    required this.phoneScreen,
-  }) : super(key: key);
-
-  final LoginController loginController;
-  final Size phoneScreen;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          color: ColorsApp.primary,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(40),
-            bottomRight: Radius.circular(40),
-          )),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        CircleAvatar(
-          child: Icon(Icons.person, color: ColorsApp.secondary),
-          backgroundColor: Colors.white,
-          radius: 20,
-        ),
-        SizedBox(width: 20),
-        Obx(() => Flexible(
-              child: Text(
-                loginController.user.value.firstName ?? "",
-                style: AppFontsResourses().secondaryWhite,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )),
-        Spacer(),
-        IconButton(
-            onPressed: () => {}, icon: Icon(Icons.add, color: Colors.white)),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.shopping_cart_outlined, color: Colors.white)),
-      ]),
     );
   }
 }

@@ -12,25 +12,17 @@ class ProductsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var productsController = Get.put<ProductsController>(ProductsController());
-
+    var productsController = Get.find<ProductsController>();
+    var phoneScreen = MediaQuery.of(context).size;
     return Container(
-        child: FutureBuilder<List<Product>>(
-      future: productsController.getProducts(),
-      builder: ((context, snapshot) => snapshot.hasData
-          ? ListView.builder(
+        child: Obx(() => ListView.builder(
+              physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: snapshot.data!.length,
+              itemCount: productsController.products.length,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(bottom: 20),
-                  child: ProductItem(
-                    product: snapshot.data![index],
-                  ),
-                );
-              })
-          : Center(child: CircularProgressIndicator())),
-    ));
+                var product = productsController.products[index];
+                return ProductItem(product: product);
+              },
+            )));
   }
 }
