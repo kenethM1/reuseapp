@@ -1,4 +1,6 @@
-class Brand {
+import 'package:equatable/equatable.dart';
+
+class Brand extends Equatable {
   Brand({
     this.id,
     this.name,
@@ -16,4 +18,8 @@ class Brand {
         "id": id,
         "name": name,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name];
 }

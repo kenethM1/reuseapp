@@ -20,4 +20,14 @@ class Image {
         "url": url,
         "productId": productId,
       };
+
+  static toList(List<String> urlsUploaded) {
+    var images = <Map<String, dynamic>>[];
+    for (var url in urlsUploaded) {
+      images.add({
+        "url": url,
+      });
+    }
+    return images;
+  }
 }

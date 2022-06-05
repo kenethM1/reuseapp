@@ -40,6 +40,14 @@ dependencies:
   google_fonts:
   carousel_slider: ^4.1.1
   multi_image_picker:
+  cloud_firestore: ^3.1.14
+  firebase_storage: 
+  firebase_core: 
+  path_provider: ^2.0.9
+  equatable: ^2.0.3
+  badges: ^2.0.2
+  animate_icons: ^2.0.0
+  flutter_typeahead: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,7 +75,7 @@ flutter:
     - assets/High_five_pana.svg
     - assets/Wishes-cuate.svg
     - assets/images/flags/
-    - assets
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

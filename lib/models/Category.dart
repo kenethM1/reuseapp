@@ -4,11 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Category categoryFromJson(String str) => Category.fromJson(json.decode(str));
 
 String categoryToJson(Category data) => json.encode(data.toJson());
 
-class Category {
+class Category extends Equatable {
   Category({
     this.id,
     this.title,
@@ -42,4 +44,14 @@ class Category {
         "success": success,
         "message": message,
       };
+
+  static Future<List<Category>> fromJsonList(json) {
+    return json != null
+        ? json.map<Category>((item) => Category.fromJson(item)).toList()
+        : null;
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, title];
 }

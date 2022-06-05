@@ -10,14 +10,16 @@ import '../utils/restClient.dart';
 
 class ProductsController extends GetxController {
   var products = <Product>[].obs;
+  var filteredProducts = <Product>[].obs;
   var selectedProduct = Product().obs;
   var isCharging = false.obs;
+  var isFiltering = false.obs;
 
   void selectProduct(Product product) {
     selectedProduct.value = product;
   }
 
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getProducts(String userId) async {
     var headers = {
       'Content-Type': 'application/json',
     };
@@ -29,7 +31,8 @@ class ProductsController extends GetxController {
       var products =
           List<Product>.from(jsonData.map((model) => Product.fromJson(model)));
       if (products.isNotEmpty) {
-        this.products.value.assignAll(products);
+        this.products.value.assignAll(
+            products.where((element) => element.sellerAccountId != userId));
         return products;
       }
       return [];
@@ -37,7 +40,7 @@ class ProductsController extends GetxController {
     return [];
   }
 
-  Future<List<Product>> GetProductByCategory(int id) async {
+  Future<List<Product>> GetProductByCategory(int id, String userId) async {
     isCharging.value = true;
     update();
     var headers = {
@@ -50,7 +53,9 @@ class ProductsController extends GetxController {
       var jsonData = json.decode(response.body);
       var products =
           List<Product>.from(jsonData.map((model) => Product.fromJson(model)));
-      this.products.value = products;
+      this.products.value = products
+          .where((element) => element.sellerAccountId.toString() != userId)
+          .toList();
       update();
       isCharging.value = false;
       return products;
@@ -58,11 +63,25 @@ class ProductsController extends GetxController {
     return [];
   }
 
-  void UpdateProductList(int? id) async {
+  void UpdateProductList(int? id, String userId) async {
     if (id != null) {
-      await GetProductByCategory(id);
+      await GetProductByCategory(id, userId);
     } else {
-      getProducts();
+      getProducts(userId);
+    }
+  }
+
+  filterProducs(String value) {
+    if (value.isEmpty) {
+      isFiltering.value = false;
+      update();
+    } else {
+      isFiltering.value = true;
+      filteredProducts.value = products
+          .where((product) =>
+              product.title!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+      update();
     }
   }
 }

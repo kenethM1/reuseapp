@@ -23,6 +23,10 @@ class AvatarWidget extends StatelessWidget {
               child: Image.network(
                 profilePicture,
                 fit: BoxFit.cover,
+                errorBuilder: (context, object, error) => const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
                 loadingBuilder: (context, widget, imageChunk) =>
                     (imageChunk?.expectedTotalBytes ?? 0) /
                                 (imageChunk?.cumulativeBytesLoaded ?? 0) >
@@ -38,7 +42,7 @@ class AvatarWidget extends StatelessWidget {
                         : widget,
               ),
             )
-          : Icon(
+          : const Icon(
               Icons.person,
               color: Colors.white,
             ),

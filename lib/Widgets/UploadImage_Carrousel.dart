@@ -5,13 +5,17 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:reuseapp/controllers/uploadImageController.dart';
 import 'package:reuseapp/utils/colors.dart';
 
+import '../utils/TranslationsHelper.dart';
+
 class UploadImage_Carrousel extends StatelessWidget {
-  const UploadImage_Carrousel({Key? key, required this.uploadImagesController})
-      : super(key: key);
-  final UploadImageController uploadImagesController;
+  const UploadImage_Carrousel({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var phoneScreen = MediaQuery.of(context).size;
+    var translate = TranslationHelper();
+    final UploadImageController uploadImagesController =
+        Get.put(UploadImageController());
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Container(
@@ -33,7 +37,7 @@ class UploadImage_Carrousel extends StatelessWidget {
                     builder: (context, AsyncSnapshot<List<Image>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return CarouselSlider(
-                          items: snapshot.data?.map((e) => e).toList(),
+                          items: snapshot.data?.map((e) => e).toList() ?? [],
                           options: CarouselOptions(
                               autoPlayCurve: Curves.easeIn,
                               disableCenter: false,
@@ -51,21 +55,23 @@ class UploadImage_Carrousel extends StatelessWidget {
                       maxImages: 5,
                       selectedAssets: uploadImagesController.images.value,
                       enableCamera: true,
-                      materialOptions: const MaterialOptions(
-                        actionBarTitle: 'Select Images',
-                        allViewTitle: 'All Photos',
-                        lightStatusBar: false,
-                        startInAllView: true,
-                        selectionLimitReachedText: 'Limit Reached',
-                        textOnNothingSelected: 'Nothing Selected',
-                      ));
+                      materialOptions: MaterialOptions(
+                          actionBarTitle: translate.getTranslated('addImages'),
+                          allViewTitle: translate.getTranslated('allPhotos'),
+                          lightStatusBar: false,
+                          startInAllView: true,
+                          selectionLimitReachedText:
+                              translate.getTranslated("maxImages"),
+                          textOnNothingSelected:
+                              translate.getTranslated("nothingSelected"),
+                          autoCloseOnSelectionLimit: true));
                   for (var image in images) {
                     debugPrint(image.name.toString());
                   }
                   uploadImagesController.images.value = images;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text("Uploading..."),
+                      content: Text(translate.getTranslated('uploadingImages')),
                     ),
                   );
                 },

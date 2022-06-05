@@ -15,8 +15,13 @@ class LoginController extends GetxController {
   var isWait = false.obs;
   var errorMessage = "".obs;
   var user = User().obs;
+  var drawerIsOpen = false.obs;
 
   get getUserProfilePicture => user.value.profilePicture ?? "";
+
+  get userIsSeller => user.value.hasApprovedSellerForm ?? false;
+
+  String get getUserName => user.value.firstName! + " " + user.value.lastName!;
 
   Future<void> login(BuildContext context) async {
     String uri = "/Accounts/authenticate";
@@ -31,10 +36,18 @@ class LoginController extends GetxController {
       'email': email.value.text,
       'password': password.value.text,
     };
-
-    http.Response response =
-        await restClient(url: uri, method: 'POST', headers: headers, body: body)
-            .execute();
+    http.Response response = new http.Response("", 200);
+    try {
+      response = await restClient(
+              url: uri, method: 'POST', headers: headers, body: body)
+          .execute();
+    } catch (e) {
+      _updateValue(isWait, value: false);
+      _updateValue(isLogged, value: false);
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(title: Text("Error")));
+    }
 
     if (response.statusCode == 200) {
       user.value = User.fromJson(json.decode(response.body));
@@ -63,6 +76,11 @@ class LoginController extends GetxController {
 
   void _updateValue(RxBool isWait, {bool? value}) {
     isWait.value = value ?? isWait.value;
+    update();
+  }
+
+  void loggedOut() {
+    isLogged.value = false;
     update();
   }
 }

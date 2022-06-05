@@ -22,4 +22,10 @@ class AppFontsResourses {
     fontSize: 15,
     color: ColorsApp.secondary,
   );
+
+  final nameStyle = GoogleFonts.inconsolata(
+    fontSize: 15,
+    color: Colors.black,
+    fontWeight: FontWeight.normal,
+  );
 }
